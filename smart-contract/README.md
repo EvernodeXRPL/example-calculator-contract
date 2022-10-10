@@ -1,5 +1,5 @@
 ## Smart Contract
-This contains the calculator logic developed on top of `HotPocket consensus engine.`
+This contains the calculator logic which was developed on top of the `HotPocket consensus engine.`
 
 > ___Prerequisite___
 - You have to install [hpdevkit](https://www.npmjs.com/package/hpdevkit) first, as this uses `hpdevkit` to deploy the contract to a HotPocket cluster in your local environment.
