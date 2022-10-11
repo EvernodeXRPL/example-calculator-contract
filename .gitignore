@@ -1,3 +1,4 @@
 */node_modules
-*/dist
+smart-contract/dist/*
+!smart-contract/dist/hp.cfg.override
 client-application/user.key
