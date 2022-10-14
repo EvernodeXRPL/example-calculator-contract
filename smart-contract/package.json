@@ -1,0 +1,13 @@
+{
+    "name": "calculator-smart-contract",
+    "version": "1.0.0",
+    "scripts": {
+        "build": "npx ncc build contract.js -o dist",
+        "build:prod": "npx ncc build contract.js --minify -o dist",
+        "start": "npm run build && hpdevkit deploy dist"
+    },
+    "dependencies": {
+        "hotpocket-nodejs-contract": "0.5.6",
+        "@vercel/ncc": "0.34.0"
+    }
+}

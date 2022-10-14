@@ -1,0 +1,6 @@
+{
+    "name": "calculator-client",
+    "dependencies": {
+        "hotpocket-js-client": "0.5.3"
+    }
+}
