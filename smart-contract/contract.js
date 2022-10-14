@@ -9,8 +9,9 @@ class Calculator {
 
     // Wired functions.
     sendOutput;
-    getContractConfigs;
-    sendViaNPL;
+    getHPConfigs;
+    getUNL;
+    sendNPL;
 
     /**
      * Stores the banner of an executed computation.
@@ -48,12 +49,12 @@ class Calculator {
      * @param {string} filename Name of the file to be removed from the memory
      */
     async clear(filename) {
-        fs.unlink(filename, (err) => {
-            if (err) {
-                console.log(err);
-                return { type: 'error', error: 'Error occurred clearing calculator memory.' }
-            }
-        })
+        try {
+            await fs.unlink(filename);
+        } catch (e) {
+            return { type: 'error', error: 'Error occurred clearing calculator memory.' };
+        }
+        return { type: 'data_result', data: 'Cleared calculator memory.' };
     }
 
     /**
@@ -78,13 +79,8 @@ class Calculator {
 
             function getMax() {
                 console.log(`Received Numbers :`, receivedNos);
-                let max = 0;
-                for (const randomNumber of receivedNos) {
-                    if (randomNumber > max) {
-                        max = randomNumber;
-                    }
-                }
-                return max;
+                receivedNos.sort().reverse();
+                return receivedNos[0];
             }
 
             let timer = setTimeout(() => {
@@ -115,7 +111,7 @@ class Calculator {
         });
 
         const random = Math.floor(Math.random() * (max - min + 1)) + min;
-        await this.sendViaNPL(JSON.stringify({ key: "randomNumber", value: random }));
+        await this.sendNPL(JSON.stringify({ key: "randomNumber", value: random }));
 
         return await promise;
     }
@@ -233,7 +229,7 @@ async function contract(ctx) {
     }
 
     // Wire-up HotPocket NPL channel usage.
-    calculator.sendViaNPL = async (message) => {
+    calculator.sendNPL = async (message) => {
         await ctx.unl.send(message);
     }
 
